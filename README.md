@@ -1,2 +1,2 @@
-![React](./src/assets/react.svg)
-![Vite](./public/vite.svg)
+![React](./my-app/src/assets/react.svg)
+![Vite](./my-app/public/vite.svg)
