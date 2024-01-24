@@ -21,7 +21,7 @@ export default class AddTutor extends Component {
   handleChange = (evt) => {
     const { name, value } = evt.target;
     this.setState({ [name]: value });
-    console.log("change");
+    // console.log("change");
   };
 
   componentDidMount() {
