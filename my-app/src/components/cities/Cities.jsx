@@ -6,10 +6,11 @@ import Button from "../common/button/Button";
 class Cities extends Component {
   state = {
     isAddCityFormVisible: false,
+    list: [],
   };
 
   render() {
-    const { isAddCityFormVisible } = this.state;
+    const { isAddFormVisible, list } = this.state;
 
     return (
       <div>
@@ -17,11 +18,14 @@ class Cities extends Component {
           <Icon variant="pin" label="cities" />
           <span>Cities</span>
         </h2>
-        {isAddCityFormVisible && <AddCitiesForm />}
+        <div>{this.renderList(list)}</div>
+        {isAddFormVisible && (
+          <AddCitiesForm onFormSubmit={this.handleAddItem} />
+        )}
         <Button
           action={() => {
             this.setState({
-              isAddCityFormVisible: true,
+              isAddFormVisible: true,
             });
           }}
         >
@@ -30,6 +34,36 @@ class Cities extends Component {
       </div>
     );
   }
+
+  renderList(list) {
+    if (!list || list.length === 0) {
+      return <div>There are no cities added</div>;
+    }
+
+    return list.map((item) => (
+      <div key={item.id}>
+        <span>{item.name}</span>
+      </div>
+    ));
+  }
+
+  handleAddItem = (item) => {
+    const list = this.state.list.sort((a, b) => a.id > b.id);
+
+    const newId = list.length > 0 ? list.length + 1 : 0;
+
+    const itemToAdd = {
+      id: newId,
+      name: item.name,
+    };
+
+    this.setState((prevState) => {
+      return {
+        list: [...prevState.list, itemToAdd],
+        isAddFormVisible: false,
+      };
+    });
+  };
 }
 
 export default Cities;
