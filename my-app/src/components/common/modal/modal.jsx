@@ -1,6 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import styles from "./Modal.module.scss";
+import styles from "./Modal.module.css";
 import { Hix } from "react-icons/hi";
 
 export default class Modal extends Component {
