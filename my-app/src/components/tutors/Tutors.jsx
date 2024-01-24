@@ -4,21 +4,35 @@ import Button from "../common/button/Button";
 import AddTutor from "./addTutor/AddTutor";
 import Icon from "../common/icon/Icon";
 
+const TUTORS_KEY = "tutors";
+
 class Tutors extends Component {
   state = {
     isAddFormVisible: false,
-    list: [
-      {
-        id: 0,
-        firstName: "Dan",
-        lastName: "Retegan",
-        telephone: "0753023616",
-        email: "danretegan@yahoo.com",
-        city: "London",
-        role: "Administrator",
-      },
-    ],
+    list: [],
   };
+
+  async componentDidMount() {
+    const data = localStorage.getItem(TUTORS_KEY);
+
+    try {
+      if (data) {
+        this.setState({
+          list: JSON.parse(data),
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    console.info("Am montat componenta Tutors.");
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState?.list.length !== this.state.list.length) {
+      localStorage.setItem(TUTORS_KEY, JSON.stringify(this.state.list));
+    }
+    console.info("Am actualizat componenta Tutors.");
+  }
 
   renderList = (items) => {
     return items.map((el) => {
@@ -38,22 +52,14 @@ class Tutors extends Component {
     });
   };
 
-  componentDidMount() {
-    console.info("Am montat componenta Tutors...");
-  }
+  // componentWillUnmount() {
+  //   console.info("Am demontat componenta Tutors!");
+  // }
 
-  componentDidUpdate() {
-    console.info("Am actualizat componenta Tutors.");
-  }
-
-  componentWillUnmount() {
-    console.info("Am demontat componenta Tutors!");
-  }
-
-  shouldComponentUpdate() {
-    console.info("ar trebui să se actualizeze componenta Tutors?");
-    return true;
-  }
+  // shouldComponentUpdate() {
+  //   console.info("ar trebui să se actualizeze componenta Tutors?");
+  //   return true;
+  // }
 
   render() {
     const { isAddFormVisible, list } = this.state;

@@ -24,22 +24,22 @@ export default class AddTutor extends Component {
     // console.log("change");
   };
 
-  componentDidMount() {
-    console.info("Am montat componenta addTutors...");
-  }
+  // componentDidMount() {
+  //   console.info("Am montat componenta addTutors...");
+  // }
 
-  componentDidUpdate() {
-    console.info("Am actualizat componenta addTutors.");
-  }
+  // componentDidUpdate() {
+  //   console.info("Am actualizat componenta addTutors.");
+  // }
 
-  componentWillUnmount() {
-    console.info("Am demontat componenta addTutors!");
-  }
+  // componentWillUnmount() {
+  //   console.info("Am demontat componenta addTutors!");
+  // }
 
-  shouldComponentUpdate() {
-    console.info("ar trebui să se actualizeze componenta addTutors?");
-    return true;
-  }
+  // shouldComponentUpdate() {
+  //   console.info("ar trebui să se actualizeze componenta addTutors?");
+  //   return true;
+  // }
 
   render() {
     const { surname, name, phone, email, city } = this.state;
