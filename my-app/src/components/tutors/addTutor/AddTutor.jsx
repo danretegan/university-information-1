@@ -25,19 +25,19 @@ export default class AddTutor extends Component {
   };
 
   componentDidMount() {
-    console.info("Am montat componenta Tutors...");
+    console.info("Am montat componenta addTutors...");
   }
 
   componentDidUpdate() {
-    console.info("Am actualizat componenta Tutors.");
+    console.info("Am actualizat componenta addTutors.");
   }
 
   componentWillUnmount() {
-    console.info("Am demontat componenta Tutors!");
+    console.info("Am demontat componenta addTutors!");
   }
 
   shouldComponentUpdate() {
-    console.info("ar trebui să se actualizeze componenta Tutors?");
+    console.info("ar trebui să se actualizeze componenta addTutors?");
     return true;
   }
 
