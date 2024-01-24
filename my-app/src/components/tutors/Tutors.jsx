@@ -38,6 +38,23 @@ class Tutors extends Component {
     });
   };
 
+  componentDidMount() {
+    console.log("Am montat componenta Tutors...");
+  }
+
+  componentDidUpdat() {
+    console.log("Am updatat componenta Tutors.");
+  }
+
+  componentWillUnmount() {
+    console.log("Am demontat componenta Tutors!");
+  }
+
+  shouldComponentUpdate() {
+    console.log("ar trebui să se actualizeze componenta Tutors?");
+    return true;
+  }
+
   render() {
     const { isAddFormVisible, list } = this.state;
     return (
