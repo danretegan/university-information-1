@@ -42,7 +42,7 @@ class Tutors extends Component {
     console.log("Am montat componenta Tutors...");
   }
 
-  componentDidUpdat() {
+  componentDidUpdate() {
     console.log("Am updatat componenta Tutors.");
   }
 
