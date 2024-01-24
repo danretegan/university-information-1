@@ -39,19 +39,19 @@ class Tutors extends Component {
   };
 
   componentDidMount() {
-    console.log("Am montat componenta Tutors...");
+    console.info("Am montat componenta Tutors...");
   }
 
   componentDidUpdate() {
-    console.log("Am updatat componenta Tutors.");
+    console.info("Am actualizat componenta Tutors.");
   }
 
   componentWillUnmount() {
-    console.log("Am demontat componenta Tutors!");
+    console.info("Am demontat componenta Tutors!");
   }
 
   shouldComponentUpdate() {
-    console.log("ar trebui să se actualizeze componenta Tutors?");
+    console.info("ar trebui să se actualizeze componenta Tutors?");
     return true;
   }
 

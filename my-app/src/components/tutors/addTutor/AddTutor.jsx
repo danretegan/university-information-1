@@ -24,6 +24,23 @@ export default class AddTutor extends Component {
     console.log("change");
   };
 
+  componentDidMount() {
+    console.info("Am montat componenta Tutors...");
+  }
+
+  componentDidUpdate() {
+    console.info("Am actualizat componenta Tutors.");
+  }
+
+  componentWillUnmount() {
+    console.info("Am demontat componenta Tutors!");
+  }
+
+  shouldComponentUpdate() {
+    console.info("ar trebui să se actualizeze componenta Tutors?");
+    return true;
+  }
+
   render() {
     const { surname, name, phone, email, city } = this.state;
 
