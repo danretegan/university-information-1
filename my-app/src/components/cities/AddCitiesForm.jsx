@@ -1,34 +1,24 @@
-import { Component } from "react";
 import PropTypes from "prop-types";
 import Button from "../common/button/Button";
+import { useState } from "react";
 
-export default class AddCitiesForm extends Component {
-  static propTypes = {
-    onFormSubmit: PropTypes.func,
-  };
+const AddCitiesForm = (onFormSubmit) => {
 
-  state = {
-    name: "",
-  };
+const [name, setName] = useState("");
 
-  handleSubmit = (e) => {
+const  handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.onFormSubmit(this.state);
+    onFormSubmit({name});
   };
 
-  handleChange = (evt) => {
+const  handleChange = (evt) => {
     const { value } = evt.target;
-    this.setState({
-      name: value,
-    });
+    setName(value);
   };
-
-  render() {
-    const { name } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="form">
         <h2>Adding a city</h2>
         <label>
           <span>Adding a city</span>
@@ -36,7 +26,7 @@ export default class AddCitiesForm extends Component {
             type="text"
             value={name}
             placeholder="City"
-            onChange={this.handleChange}
+            onChange={handleChange}
             required
           />
         </label>
@@ -44,5 +34,11 @@ export default class AddCitiesForm extends Component {
         <Button type="submit">Add</Button>
       </form>
     );
-  }
+  
 }
+
+AddCitiesForm.propTypes = {
+  onFormSubmit: PropTypes.func,
+};
+
+export default AddCitiesForm;
