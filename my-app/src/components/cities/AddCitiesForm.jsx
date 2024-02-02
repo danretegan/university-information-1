@@ -34,7 +34,6 @@ const  handleChange = (evt) => {
         <Button type="submit">Add</Button>
       </form>
     );
-  
 }
 
 AddCitiesForm.propTypes = {
