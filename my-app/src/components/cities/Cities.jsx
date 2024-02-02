@@ -1,43 +1,21 @@
-import { Component } from "react";
 import AddCitiesForm from "./AddCitiesForm";
 import Icon from "../common/icon/Icon";
 import Button from "../common/button/Button";
+import { useEffect, useState } from "react";
+import ErrorAlert from "../common/errorAlert/ErrorAlert";
+import citiesService from "../../service/citiesService";
 
-class Cities extends Component {
-  state = {
-    isAddCityFormVisible: false,
-    list: [],
-  };
+const CITIES_KEY = "cities";
 
-  render() {
-    const { isAddFormVisible, list } = this.state;
+const Cities = () => {
+  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
+  const [list, setList] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState("false");
 
-    return (
-      <div>
-        <h2>
-          <Icon variant="pin" label="cities" />
-          <span>Cities</span>
-        </h2>
-        <div>{this.renderList(list)}</div>
-        {isAddFormVisible && (
-          <AddCitiesForm onFormSubmit={this.handleAddItem} />
-        )}
-        <Button
-          action={() => {
-            this.setState({
-              isAddFormVisible: true,
-            });
-          }}
-        >
-          Add City
-        </Button>
-      </div>
-    );
-  }
-
-  renderList(list) {
+  const renderList = (list) => {
     if (!list || list.length === 0) {
-      return <div>There are no cities added</div>;
+      return <div>There are no cities addes</div>;
     }
 
     return list.map((item) => (
@@ -45,25 +23,69 @@ class Cities extends Component {
         <span>{item.name}</span>
       </div>
     ));
-  }
+  };
 
-  handleAddItem = (item) => {
-    const list = this.state.list.sort((a, b) => a.id > b.id);
+  useEffect(() => {
+    async function getCities() {
+      const response = await citiesService.get();
+      setList(response);
 
-    const newId = list.length > 0 ? list.length + 1 : 0;
+      return response;
+    }
+
+    setIsLoading(true);
+    getCities()
+      .catch((error) => {
+        console.error(error);
+        setError("A aparut o eroare la obtinera listei de orase");
+      })
+      .finally(setIsLoading(false));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(CITIES_KEY, JSON.stringify(list));
+  });
+
+  const handleAddItem = (item) => {
+    const sortedList = list.sort((a, b) => a.id > b.id);
+
+    if (sortedList.find((el) => el.name === item.name)) {
+      setError("Un oras cu denumirea asta exista deja");
+
+      return;
+    }
+
+    const newId = sortedList.length > 0 ? sortedList.length + 1 : 0;
 
     const itemToAdd = {
       id: newId,
       name: item.name,
     };
 
-    this.setState((prevState) => {
-      return {
-        list: [...prevState.list, itemToAdd],
-        isAddFormVisible: false,
-      };
+    setList((prevState) => {
+      return [...prevState, itemToAdd];
     });
+    setIsAddFormVisible(false);
   };
-}
+
+  return (
+    <div>
+      <h2>
+        <Icon variant="pin" label="cities" />
+        <span>Cities</span>
+      </h2>
+      <div>{renderList(list)}</div>
+      {isAddFormVisible && <AddCitiesForm onFormSubmit={handleAddItem} />}
+      {error.length > 0 && <ErrorAlert errors={error} />}
+      <Button
+        action={() => {
+          setIsAddFormVisible(true);
+        }}
+      >
+        Add City
+      </Button>
+    </div>
+  );
+};
 
 export default Cities;
