@@ -1,12 +1,11 @@
-import { Component } from "react";
 import "./App.css";
 import Sidebar from "./components/sidebar/Sidebar";
 import Tutors from "./components/tutors/Tutors";
 import University from "./components/university/University";
 import Cities from "./components/cities/cities";
 
-class App extends Component {
-  render() {
+const App = () => {
+  
     return (
       <main className="App">
         <Sidebar />
@@ -17,7 +16,7 @@ class App extends Component {
         </section>
       </main>
     );
-  }
+  
 }
 
 export default App;
