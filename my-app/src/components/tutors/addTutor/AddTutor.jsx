@@ -1,114 +1,120 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../../common/button/Button";
 
-export default class AddTutor extends Component {
-  static propTypes = { onFormSubmit: PropTypes.func };
+const AddTutor = (props) => {
+  const { onFormSubmit, testProp } = props;
 
-  state = {
-    surname: "",
-    name: "",
-    phone: "",
-    email: "",
-    city: "",
-  };
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onFormSubmit(this.state);
+    const user = {
+      surname,
+      name: username,
+      phone,
+      email,
+      city,
+    };
+    onFormSubmit(user);
   };
 
-  handleChange = (evt) => {
+  const handleChange = (evt) => {
     const { name, value } = evt.target;
-    this.setState({ [name]: value });
-    // console.log("change");
+
+    const action = {
+      surname: setSurname,
+      username: setUsername,
+      phone: setPhone,
+      email: setEmail,
+      city: setCity,
+    };
+    action[name](value);
   };
 
-  // componentDidMount() {
-  //   console.info("Am montat componenta addTutors...");
-  // }
+  useEffect(() => {
+    console.log("Add tutor a fost modificat");
+    return () => {
+      console.log("Add tutor a fost sters din DOM");
+    };
+  }, []);
 
-  // componentDidUpdate() {
-  //   console.info("Am actualizat componenta addTutors.");
-  // }
+  return (
+    <form className="form" onSubmit={handleSubmit}>
+      <h1>Add Tutor</h1>
+      <h2>{testProp}</h2>
+      <label>
+        <span>Surname</span>
+        <input
+          type="text"
+          value={surname}
+          name="surname"
+          placeholder="Surname"
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-  // componentWillUnmount() {
-  //   console.info("Am demontat componenta addTutors!");
-  // }
+      <label>
+        <span>Name</span>
+        <input
+          type="text"
+          value={username}
+          name="username"
+          placeholder="Name"
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-  // shouldComponentUpdate() {
-  //   console.info("ar trebui să se actualizeze componenta addTutors?");
-  //   return true;
-  // }
+      <label>
+        <span>Phone</span>
+        <input
+          type="tel"
+          value={phone}
+          name="phone"
+          placeholder="Phone"
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-  render() {
-    const { surname, name, phone, email, city } = this.state;
+      <label>
+        <span>Email</span>
+        <input
+          type="email"
+          value={email}
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-    return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <h1>Add a tutor</h1>
-        <label>
-          <span>Surname</span>
-          <input
-            type="text"
-            value={surname}
-            name="surname"
-            placeholder="Surname"
-            onChange={this.handleChange}
-            required
-          />
-        </label>
+      <label>
+        <span>City</span>
+        <input
+          type="text"
+          value={city}
+          name="city"
+          placeholder="City"
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-        <label>
-          <span>Name</span>
-          <input
-            type="text"
-            value={name}
-            name="name"
-            placeholder="Name"
-            onChange={this.handleChange}
-            required
-          />
-        </label>
+      <Button type="submit">Invite</Button>
+    </form>
+  );
+};
 
-        <label>
-          <span>Phone</span>
-          <input
-            type="tel"
-            value={phone}
-            name="phone"
-            placeholder="Phone"
-            onChange={this.handleChange}
-            required
-          />
-        </label>
+AddTutor.propTypes = {
+  onFormSubmit: PropTypes.func,
+  testProp: PropTypes.string,
+};
 
-        <label>
-          <span>Email</span>
-          <input
-            type="email"
-            value={email}
-            name="email"
-            placeholder="Email"
-            onChange={this.handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          <span>City</span>
-          <input
-            type="text"
-            value={city}
-            name="city"
-            placeholder="City"
-            onChange={this.handleChange}
-            required
-          />
-        </label>
-
-        <Button type="submit">Invite</Button>
-      </form>
-    );
-  }
-}
+export default AddTutor;
