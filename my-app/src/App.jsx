@@ -1,22 +1,30 @@
-import "./App.css";
-import Sidebar from "./components/sidebar/Sidebar";
-import Tutors from "./components/tutors/Tutors";
-import University from "./components/university/University";
-import Cities from "./components/cities/cities";
+import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import SharedLayout from './pages/SharedLayout'
+import HomePage from './pages/HomePage'
+import NotFoundPage from './pages/NotFoundPage'
+import FacultiesPage from './pages/FacultiesPage'
+import FacultyPage from './pages/FacultyPage'
+import FacultyHistory from './components/Faculties/FacultyHistory'
 
 const App = () => {
-  
-    return (
-      <main className="App">
-        <Sidebar />
-        <section className="container">
-          <University />
-          <Tutors />
-          <Cities />
-        </section>
-      </main>
-    );
-  
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SharedLayout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route path='faculties' element={<FacultiesPage />} />
+          <Route path='faculties/:id' element={<FacultyPage />}>
+            <Route index element={<FacultyDescription/>} />
+            <Route path='description' element={<FacultyDescription/>} />
+            <Route path='history' element={<FacultyHistory/>} />
+          </Route>
+          <Route path='*' element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App

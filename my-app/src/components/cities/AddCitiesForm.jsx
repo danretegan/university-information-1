@@ -1,43 +1,42 @@
-import PropTypes from "prop-types";
-import Button from "../common/button/Button";
 import { useState } from "react";
+import PropTypes from 'prop-types';
+import Button from "../common/Button/Button";
 
-const AddCitiesForm = (onFormSubmit) => {
+const AddCitiesForm = ({onFormSubmit}) => {
 
-const [name, setName] = useState("");
+    const [name, setName] = useState('')
 
-const  handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    onFormSubmit({name});
-  };
+        onFormSubmit({name})
+    }
 
-const  handleChange = (evt) => {
-    const { value } = evt.target;
-    setName(value);
-  };
+    const handleChange = (e) => {
+        const { value } = e.target;
+        setName(value)
+    }
 
     return (
-      <form onSubmit={handleSubmit} className="form">
-        <h2>Adding a city</h2>
-        <label>
-          <span>Adding a city</span>
-          <input
-            type="text"
-            value={name}
-            placeholder="City"
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <form onSubmit={handleSubmit} className="form">
+            <h1>Adding a city</h1>
+            <label>
+                <span>Adding a city</span>
+                <input
+                    type="text"
+                    value={name}
+                    placeholder="City"
+                    onChange={handleChange}
+                    required
+                />
+            </label>
 
-        <Button type="submit">Add</Button>
-      </form>
-    );
+            <Button type="submit">Add</Button>
+        </form>
+    )
 }
 
-AddCitiesForm.propTypes = {
-  onFormSubmit: PropTypes.func,
-};
+AddCitiesForm.propTypes = { onFormSubmit: PropTypes.func }
 
-export default AddCitiesForm;
+
+export default AddCitiesForm
