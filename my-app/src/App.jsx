@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import FacultiesPage from './pages/FacultiesPage'
 import FacultyPage from './pages/FacultyPage'
+import FacultyDescription from './components/Faculties/FacultyDescription'
 import FacultyHistory from './components/Faculties/FacultyHistory'
 
 const App = () => {
